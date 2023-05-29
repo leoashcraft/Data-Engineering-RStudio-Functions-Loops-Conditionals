@@ -1,0 +1,137 @@
+# Functions and Conditionals
+
+## Homework
+
+1.  Do 5 CodeWars problems in R. Share your solutions here:
+
+    ```{r}
+
+    # Function 1 - hello world
+    # https://www.codewars.com/kata/523b4ff7adca849afe000035
+    # Make a simple function called greet that returns the most-famous "hello world!".
+    greet <- function() {
+      greeting <- "hello world!"
+      return(greeting)
+    }
+    greet()
+
+    # Two Oldest Ages
+    # https://www.codewars.com/kata/511f11d355fe575d2c000001
+    # The two oldest ages function/method needs to be completed. It should take an array of numbers as its argument and return the two highest numbers within the array. The returned value should be an array in the format [second oldest age,  oldest age].
+    #The order of the numbers passed in could be any order. The array will always include at least 2 items. If there are two or more oldest age, then return both of them in array format.
+
+    two_oldest_ages <- function(ages){
+       l <- length(ages)
+       ll <- l - 1
+      new_ages <- sort(ages)[ll:l]
+    return(new_ages)
+    }
+    two_oldest_ages(c(12, 16, 5, 27, 54, 77, 54, 24, 87))
+
+    # Descending Order
+    # https://www.codewars.com/kata/5467e4d82edf8bbf40000155
+    # Your task is to make a function that can take any non-negative integer as an argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.
+    descending_order <- function(num){
+      return(as.numeric(paste(sort(as.numeric(unlist(strsplit(as.character(num), split =''))), decreasing = TRUE), sep = '', collapse = '')))
+    }
+
+    descending_order(4859117)
+
+    # Digit*Digit
+    # https://www.codewars.com/kata/546e2562b03326a88e000020
+    # Welcome. In this kata, you are asked to square every digit of a number and concatenate them.
+    square_digits <- function(num){
+      nums <- strsplit(as.character(num), '')
+      empty_list <- list()
+      for (n in nums){
+        x <- as.integer(n) * as.integer(n)
+        num_list <- append(empty_list, x)
+      }
+      new_nums <-as.integer(paste(num_list, collapse = ''))
+     
+      return(new_nums)
+    }
+
+    # Sum of Cubes
+    # https://www.codewars.com/kata/59a8570b570190d313000037
+    # Write a function that takes a positive integer n, sums all the cubed values from 1 to n (inclusive), and returns that sum.
+    sum_cubes <- function(n){
+      n = n
+      cubed = list()
+      while (n > 0) {
+        cubed[[length(cubed) + 1]] <- n*n*n
+        n = n - 1
+      }
+      total = Reduce("+", cubed)
+      print(total)
+
+    }
+    sum_cubes(9)
+
+    # Exes and Ohs
+    # https://www.codewars.com/kata/55908aad6620c066bc00002a
+    # Check to see if a string has the same amount of 'x's and 'o's. The method must return a boolean and be case insensitive. The string can contain any char.
+    xo <- function(s){
+      x = lengths(regmatches(s, gregexpr("x", s, ignore.case=TRUE)))
+      o = lengths(regmatches(s, gregexpr("o", s, ignore.case=TRUE)))
+      return(x == o)
+    }
+    xo('aosdjh9xkxX!tji4235ooXOfa643sdf')
+    ```
+
+2.  install.packages ("purrr")
+
+3.  Create a function that checks an input of type `int` and returns fizz if the number is a multiple of 3, buzz if the number is a multiple of 5, and fizzbuzz if the number is a multiple of 3 and 5.
+
+    ```{r}
+    library ("purrr")
+    fb <- function(i){
+      if (!is.character(i)){
+        if (i %% 1 == 0 || !is.character(i)){
+          if (i %% 3 == 0 && i %% 5 == 0) {
+            output <- 'fizzbuzz'
+            } else if (i %% 3 == 0){
+            output <- 'fizz'
+            } else if (i %% 5 == 0){
+            output <- 'buzz'
+            } else {
+            output <- 'Not an integer'
+            }
+        }
+      } else {
+        output <- 'Not an integer'
+      }
+      return(output)
+    }
+
+    fb(99)
+    fb(200)
+    fb(300)
+    fb(1.1)
+    fb('x')
+    ```
+
+4.  **Mario Challenge:** In the classic Super Mario games, Mario ends each level by ascending a flight of stairs and leaping off the top to arrive at the castle at the end. (See [here](https://youtu.be/-avspZlbOWU?t=55) for details). We can imagine that each of the bricks of the stairs is a character X. Create a function that prints out a set of stairs. For example:
+
+    If the function is called marioStairs() and we pass in the value 4, we would expect to see stairs with a length of 4 and a height of 4:
+
+    X\
+    XX\
+    XXX\
+    XXXX
+
+    ```{r}
+    mariostairs <- function(n){
+      i <- n - 1
+      j <- 1
+      while (j <= n) {
+        x <- strrep(' ',i)
+        y <- strrep('x',j)
+        cat(paste(x, y), sep = '\n')
+        i <- i - 1
+        j <- j + 1
+      }
+    }
+
+    mariostairs(4)
+    ```
